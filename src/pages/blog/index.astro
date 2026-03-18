@@ -11,6 +11,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
+import SearchFilter from '../../components/SearchFilter.tsx';
 import { getAllBlogPosts, getPublishedPostSummaries } from '../../data/cms-helpers';
 
 const posts = getAllBlogPosts();
@@ -20,7 +21,7 @@ const postSummaries = getPublishedPostSummaries();
 <BaseLayout title="Blog | Boldin" description="Retirement planning insights and guides.">
   <h1>Blog</h1>
 
-  <!-- TODO: Add SearchFilter island here (Task 1) — postSummaries is available to pass as a prop -->
+  <SearchFilter client:load posts={postSummaries} />
 
   <section>
     {posts.map((post) => (
