@@ -20,6 +20,7 @@
 - `CHALLENGE.md` — Candidate-facing instructions
 
 ### Files to modify (candidate repo)
+- `src/data/cms.json` — Add more blog posts (need overlapping categories for Tasks 3 & 4)
 - `src/data/cms-helpers.ts` — Add `submitNewsletter()` mock function
 - `src/pages/blog/index.astro` — Rewire to use 4 new components
 
@@ -40,9 +41,22 @@
 ### Task 1: Update data layer
 
 **Files:**
+- Modify: `src/data/cms.json`
 - Modify: `src/data/cms-helpers.ts`
 
-- [ ] **Step 1: Add `submitNewsletter()` mock function**
+- [ ] **Step 1: Add more blog posts to cms.json**
+
+The current data has only 3 posts, each in a unique category. Tasks 3 and 4 need multiple posts per category to be meaningful. Add 5 more posts so the distribution is:
+- Social Security: 3 posts
+- Tax Planning: 2 posts
+- Budgeting: 2 posts
+- Estate Planning: 1 post
+
+This gives Task 3 (category filtering) interesting results per tab, and Task 4 (RelatedPosts: "show posts in the same category") will actually return results.
+
+New posts only need `id`, `slug`, `title`, `author`, `publishedAt`, `category`, `excerpt`, and `seo`. Body content is optional (can be null or minimal) since only the summary fields are used by the challenge components.
+
+- [ ] **Step 2: Add `submitNewsletter()` mock function to cms-helpers.ts**
 
 Add to the end of `cms-helpers.ts`:
 
@@ -60,7 +74,7 @@ export function submitNewsletter(email: string): Promise<{ success: boolean }> {
 }
 ```
 
-- [ ] **Step 2: Verify build**
+- [ ] **Step 3: Verify build**
 
 Run: `cd ~/code/personal/interview-astro-challenge && npm run build`
 Expected: Builds successfully
@@ -74,20 +88,22 @@ Expected: Builds successfully
 
 The component must:
 - Have its own `PostCardProps` interface (not BlogPostSummary) with `postSlug`, `title`, `excerpt`, `author`, `publishedAt`, `isNew`
-- Bug 1a: Use `slug` (wrong) instead of `postSlug` (correct) in the link href
-- Bug 1b: Call `publishedAt.toLocaleDateString()` without `new Date()` wrapper
+- Bug 1a: Use `slug` (wrong) instead of `postSlug` (correct) in the link href. Since `slug` is not a declared prop, TypeScript would error. To avoid compile-time errors, destructure props with `...rest` or access via `(props as any).slug` — OR simpler: just use a template literal with a typo like `` `/blog/${title}` `` instead of `` `/blog/${postSlug}` `` so it renders `/blog/How to Maximize...` which is obviously wrong but compiles.
+- Bug 1b: Format the date incorrectly. Since `publishedAt` is a `string`, calling `.toLocaleDateString()` won't compile. Instead, use `new Date(publishedAt + 'Z')` which produces the wrong date (off by a day due to timezone), or simpler: format using a bad format string or just display the raw ISO string `publishedAt` without formatting. **Simplest approach:** render `new Date(publishedAt).toLocaleDateString()` and the bug is that it shows the date one day off (timezone issue with date-only strings). Or just use `publishedAt.split('-').join('/')` which outputs "2026/01/15" instead of a nice format.
 - Bug 1c: Render `<span>NEW</span>` unconditionally instead of checking `isNew`
 - Have full styling that looks polished aside from the bugs
 - Have hint comments near each bug
 - Have a clear header comment explaining the task
 
+**Important:** All bugs must compile without TypeScript errors. They should be runtime/visual bugs the candidate can see in the browser.
+
 - [ ] **Step 1: Write PostCard.tsx with intentional bugs**
 
-Write the component with all three bugs, hint comments, and styling.
+Write the component with all three bugs, hint comments, and styling. Verify all bugs are visual/runtime only — no compile errors.
 
-- [ ] **Step 2: Verify it renders**
+- [ ] **Step 2: Verify it compiles and renders**
 
-Check that the component compiles (bugs should be runtime, not compile-time).
+Run build to confirm no TypeScript errors. Check browser to confirm all three bugs are visible.
 
 ---
 
@@ -167,10 +183,10 @@ Write the minimal component with props interface and placeholder.
 - [ ] **Step 1: Rewrite blog index page**
 
 Import all 4 new components. Render them in sections with `client:load`. Pass appropriate props:
-- PostCard: Pass first post data with `isNew={true}`, second with `isNew={false}`
+- PostCard: Map BlogPostSummary fields to PostCardProps. Specifically: `postSlug={post.slug}` (NOT `slug`), `title`, `excerpt`, `author`, `publishedAt`, `isNew={true}` for first card, `isNew={false}` for second. This mapping is critical — Bug 1a depends on `postSlug` being the correct prop name.
 - NewsletterSignup: No props needed
 - PostList: Pass `posts={postSummaries}`
-- RelatedPosts: Pass `currentSlug`, `currentCategory` from first post, `allPosts={postSummaries}`
+- RelatedPosts: Pass `currentSlug={firstPost.slug}`, `currentCategory={firstPost.category}`, `allPosts={postSummaries}`
 
 - [ ] **Step 2: Delete old component files**
 
@@ -234,11 +250,11 @@ Run: `npm run build` in answer key repo.
 
 - [ ] **Step 1: Squash challenge repo to single commit**
 
-Interactive rebase to squash all commits, single message: `chore: interview frontend challenge`
+Use soft reset (not interactive rebase): `git reset --soft $(git rev-list --max-parents=0 HEAD) && git commit -m "chore: interview frontend challenge"`
 
 - [ ] **Step 2: Squash answer key repo to single commit**
 
-Single message: `chore: interview frontend challenge — answer key`
+Use soft reset: `git reset --soft $(git rev-list --max-parents=0 HEAD) && git commit -m "chore: interview frontend challenge — answer key"`
 
 - [ ] **Step 3: Rename repos**
 
