@@ -1,65 +1,67 @@
 # Front-End Web Engineer — Interview Challenge
 
-This is a small Astro project simulating a marketing site powered by a headless CMS. The CMS data is mocked in `src/data/cms.json` and accessed through helper functions in `src/data/cms-helpers.ts`.
+This is a small Astro project simulating a marketing site powered by a headless CMS.
 
-The site is partially built. Your job is to identify and fix issues, then extend it.
+The CMS data is mocked in `src/data/cms.json` and accessed via helper functions in `src/data/cms-helpers.ts`. The site is partially built — your job is to fix issues and extend it.
 
 ## Setup
 
 ```bash
-git clone https://github.com/joegoldwasser/interview-astro-challenge.git
-cd interview-astro-challenge
 npm install
 npm run dev
 ```
 
-The site runs at `http://localhost:4321`. Navigate to `/blog` to see the current state.
+Open `http://localhost:4321/blog` to see the current state.
 
 ## Context
 
-- This site links to an external **Rails/React application** at `app.boldin.com`
-- Blog posts can link to other blog posts via **reference IDs** (not URLs)
-- Blog posts can also link to external pages via **direct URLs**
+- This marketing site links to an external **Rails/React application** at `app.boldin.com`
+- Blog posts can link to **other blog posts** via reference IDs (not URLs)
+- Blog posts can link to **external pages** via direct URLs
 - Some CMS content may be deleted or incomplete
-- **New to Astro?** That's okay. Astro is similar to Next.js or other component frameworks. Files in `src/pages/` are routes, `.astro` files are templates with a frontmatter block (`---`) for server-side logic. The key difference: React components render as static HTML by default. To make a component interactive in the browser, look up Astro's `client:` directives in the [docs](https://docs.astro.build/en/guides/framework-components/#hydrating-interactive-components).
+- **New to Astro?** That's fine — Astro works like Next.js. Files in `src/pages/` are routes. `.astro` files have a frontmatter block (`---`) for server-side logic and HTML below it. The key difference from a normal React app: **React components render as static HTML by default**. To make one interactive in the browser, you need Astro's `client:` directives — see the [docs](https://docs.astro.build/en/guides/framework-components/#hydrating-interactive-components).
+
+## Key files
+
+| File | What it does |
+|---|---|
+| `src/data/cms.json` | Mock CMS content (blog posts, landing pages) |
+| `src/data/cms-helpers.ts` | Helper functions to query the CMS data |
+| `src/pages/blog/index.astro` | Blog listing page |
+| `src/pages/blog/[slug].astro` | Individual blog post page (one per post) |
+| `src/components/SearchFilter.tsx` | React search component (incomplete) |
 
 ---
 
-## Task 1: Add the Interactive Search Island
+## Task 1: Add the Interactive Search
 
 **Files:** `src/components/SearchFilter.tsx` and `src/pages/blog/index.astro`
 
-Navigate to `/blog`. There's a React search/filter component (`SearchFilter.tsx`) that exists but is incomplete and not wired up to the page.
+A React search component exists at `SearchFilter.tsx` but is incomplete and not connected to the page.
 
-1. Add the `SearchFilter` component to the blog index page so it renders and is interactive in the browser
-2. Pass it the blog post data it needs (hint: `postSummaries` is already computed in the page's frontmatter)
-3. Complete the component so it filters posts by title and excerpt as the user types
-4. Display filtered results — your choice on approach
-
-Once you have data flowing through the component, you may notice some issues with the CMS data. That leads to Task 2.
+1. Add `SearchFilter` to the blog index page so it renders **and is interactive** in the browser
+2. Pass it the blog post data — `postSummaries` is already computed in the page frontmatter
+3. Complete the component: filter posts by title and excerpt as the user types
+4. Display the filtered results below the search input
 
 ## Task 2: Fix the Blog Data
 
 **Files:** `src/pages/blog/index.astro` and `src/pages/blog/[slug].astro`
 
-You've probably noticed a broken card on the blog index — a post with no title, no author, and a date of December 31, 1969. The CMS data includes deleted and incomplete content that shouldn't be rendered.
+Look at the blog index — there's a broken card at the bottom (no title, "December 31, 1969"). Click into any post and check the links in the body.
 
-1. **Filter out invalid posts.** Only publishable content should display on the blog index and flow into the search component. Consider: what makes a post "valid" enough to display?
-
-2. **Fix internal reference links.** Click into any blog post and look at the links in the body. When one post links to another via a `reference` ID, the current code renders the raw ID as the href (e.g., `<a href="post-003">`). Resolve these to actual blog post URLs using the helpers in `src/data/cms-helpers.ts`.
-
-3. **Handle missing references gracefully.** What should happen if a referenced post has been deleted? The link shouldn't crash the page or point to a dead URL.
+1. **Filter out deleted/invalid posts** from the blog index card list
+2. **Fix internal reference links** — they currently render the raw reference ID as the href (e.g. `<a href="post-003">`). Resolve them to real URLs like `/blog/roth-conversion-guide` using the helpers in `cms-helpers.ts`
+3. **Handle missing references** — if a referenced post was deleted, the link shouldn't crash or point to a dead URL
 
 ## Task 3: Add Structured Data (if time allows)
 
 **File:** `src/pages/blog/[slug].astro`
 
-Add a JSON-LD `BlogPosting` script tag to the blog post page for SEO. Use the post's data (title, author, date, description) to populate it.
+Add a JSON-LD `BlogPosting` script tag to the page for SEO, using the post's title, author, date, and description.
 
-## Bonus: Discussion
+## Discussion (if time allows)
 
-If time allows, we'll discuss:
-
-- How would you validate that external links to `app.boldin.com` are still valid?
+- How would you catch broken links if an engineering team changes a URL in the Rails/React app?
 - What would change if this data came from a real CMS API instead of a JSON file?
-- How would you handle a blog post slug change without breaking existing Google rankings?
+- How would you handle a slug change without breaking Google rankings?

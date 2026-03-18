@@ -1,4 +1,16 @@
 ---
+/**
+ * Blog post detail page — one page per post, generated at build time.
+ *
+ * Task 2: Internal reference links are broken. When a post links to another
+ *         post via a reference ID, the code below renders the raw ID as the
+ *         href (e.g. <a href="post-003">). Use getBlogPostById() from
+ *         cms-helpers.ts to resolve these to real URLs like /blog/roth-conversion-guide.
+ *         Also handle the case where a referenced post has been deleted.
+ *
+ * Task 3: Add a JSON-LD <script> tag with BlogPosting structured data for SEO.
+ *         Use the post's title, author, date, and description.
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllBlogPosts, getBlogPostById } from '../../data/cms-helpers';
 import type { ContentBlock } from '../../data/cms-helpers';
@@ -12,35 +24,9 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-
-// FIX (Task 2): Helper to resolve internal reference links to actual URLs.
-// Looks up the referenced post by ID, returns its blog URL.
-// Returns undefined if the post doesn't exist or was deleted.
-function resolveReference(refId: string): string | undefined {
-  const referenced = getBlogPostById(refId);
-  if (!referenced || referenced._deleted) return undefined;
-  return `/blog/${referenced.slug}`;
-}
 ---
 
 <BaseLayout title={post.seo?.title ?? post.title ?? 'Blog Post'} description={post.seo?.description}>
-  {/* FIX (Task 3): JSON-LD structured data for SEO */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "author": {
-      "@type": "Person",
-      "name": post.author,
-    },
-    "datePublished": post.publishedAt,
-    "description": post.seo?.description ?? post.excerpt,
-    "publisher": {
-      "@type": "Organization",
-      "name": "Boldin",
-    },
-  })} />
-
   <article>
     <header>
       <span class="category">{post.category}</span>
@@ -66,24 +52,10 @@ function resolveReference(refId: string): string | undefined {
           return <Tag>{block.text}</Tag>;
         }
         if (block.type === 'link') {
-          // FIX (Task 2): Resolve internal references to real URLs.
-          // For external links, use the href directly.
-          // For internal references, look up the post by ID and build the URL.
-          // If the referenced post is deleted/missing, render plain text instead of a broken link.
-          let href: string | undefined;
-          if (block.external) {
-            href = block.href;
-          } else if (block.reference) {
-            href = resolveReference(block.reference);
-          }
-
-          // FIX (Task 2): Graceful handling — if reference is missing/deleted,
-          // render the text without a link instead of a broken <a> tag.
-          if (!href) {
-            return <p><span>{block.text}</span></p>;
-          }
-
-          return <p><a href={href} target={block.external ? '_blank' : undefined} rel={block.external ? 'noopener noreferrer' : undefined}>{block.text}</a></p>;
+          // BUG: This renders the raw reference ID as the href for internal links.
+          // External links work fine, but internal ones produce <a href="post-003">.
+          const href = block.external ? block.href : block.reference;
+          return <p><a href={href}>{block.text}</a></p>;
         }
       })}
     </div>

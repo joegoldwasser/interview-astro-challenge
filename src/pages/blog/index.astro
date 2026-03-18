@@ -1,17 +1,25 @@
 ---
+/**
+ * Blog index page — lists all blog posts from the CMS.
+ *
+ * Task 1: Add the SearchFilter component to this page as an interactive island.
+ *         The postSummaries variable below is ready to pass as a prop.
+ *
+ * Task 2: The card list below renders ALL posts, including deleted ones.
+ *         You'll see a broken card at the bottom. Filter it out.
+ */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
-import SearchFilter from '../../components/SearchFilter.tsx';
 import { getAllBlogPosts, getPublishedPostSummaries } from '../../data/cms-helpers';
 
-const posts = getAllBlogPosts().filter((p) => !p._deleted && p.title);
+const posts = getAllBlogPosts();
 const postSummaries = getPublishedPostSummaries();
 ---
 
 <BaseLayout title="Blog | Boldin" description="Retirement planning insights and guides.">
   <h1>Blog</h1>
 
-  <SearchFilter client:load posts={postSummaries} />
+  <!-- Task 1: Add SearchFilter here. postSummaries is available to pass as a prop. -->
 
   <section>
     {posts.map((post) => (
