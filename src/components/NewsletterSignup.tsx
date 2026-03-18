@@ -24,10 +24,15 @@ export default function NewsletterSignup() {
   const handleSubmit = async () => {
     // TODO (2a): Validate the email before submitting.
     //   Basic validation is fine — no need for a full email regex.
+    //   If invalid, update status and return early.
 
-    // TODO (2b): Use the status state to show feedback.
-    //   Update it at the right points in this function.
-    await submitNewsletter(email);
+    // TODO (2b): Set the right status at each point in this flow.
+    try {
+      await submitNewsletter(email);
+      // TODO (2b): What status should we set here?
+    } catch {
+      // TODO (2b): What status should we set here?
+    }
   };
 
   return (
