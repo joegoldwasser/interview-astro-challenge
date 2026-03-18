@@ -109,11 +109,16 @@ export function getSiteInfo() {
 /**
  * Simulates a newsletter signup API call.
  * Returns after a 1 second delay.
+ * Use "error@test.com" to simulate a failure.
  */
 export function submitNewsletter(email: string): Promise<{ success: boolean }> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({ success: true });
+      if (email === 'error@test.com') {
+        reject(new Error('Server error'));
+      } else {
+        resolve({ success: true });
+      }
     }, 1000);
   });
 }
