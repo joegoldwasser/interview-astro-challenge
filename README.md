@@ -26,7 +26,7 @@ Each component file has a comment at the top explaining what to do, and TODO com
 
 This card component has 3 visible bugs. Look at the cards on the page, then find and fix each bug in the code.
 
-- **1a:** The title link goes to the wrong URL
+- **1a:** The title link points to the wrong URL
 - **1b:** The date isn't formatted nicely
 - **1c:** The "NEW" badge shows on every card, even when it shouldn't
 

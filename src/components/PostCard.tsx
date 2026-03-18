@@ -3,10 +3,6 @@
  *
  * This component displays a blog post card. It has 3 bugs — you can see
  * them in the browser. Find and fix each one.
- *
- * Bug 1a: The title link goes to the wrong URL
- * Bug 1b: The date is not formatted nicely
- * Bug 1c: The "NEW" badge shows on every card, even when it shouldn't
  */
 
 interface PostCardProps {
@@ -21,13 +17,11 @@ interface PostCardProps {
 export default function PostCard({ postSlug, title, excerpt, author, publishedAt, isNew }: PostCardProps) {
   return (
     <div style={styles.card}>
-      {/* Bug 1c: The NEW badge shows on every card. It should only show when isNew is true. */}
-      {/* Hint: the NEW badge should only show when isNew is true */}
+      {/* Bug 1c */}
       <span style={styles.badge}>NEW</span>
 
       <h3 style={styles.title}>
-        {/* Bug 1a: The link URL is wrong — click it and check the browser URL bar. */}
-        {/* Hint: check the prop names above */}
+        {/* Bug 1a */}
         <a href={`/blog/${title}`} style={styles.link}>
           {title}
         </a>
@@ -38,8 +32,7 @@ export default function PostCard({ postSlug, title, excerpt, author, publishedAt
       <div style={styles.meta}>
         <span>By {author}</span>
         <span>&middot;</span>
-        {/* Bug 1b: The date shows as a raw string like "2026-01-15" instead of "January 15, 2026". */}
-        {/* Hint: publishedAt is a string, not a Date object */}
+        {/* Bug 1b */}
         <span>{publishedAt}</span>
       </div>
     </div>
