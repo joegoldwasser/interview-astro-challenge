@@ -1,20 +1,10 @@
 ---
-/**
- * Blog index page — lists all blog posts from the CMS.
- *
- * CANDIDATE TASK: See CHALLENGE.md Task 1.
- * - Add the SearchFilter component as an interactive island
- * - The postSummaries data is ready to pass to it
- *
- * CANDIDATE TASK: See CHALLENGE.md Task 2.
- * - The full posts list includes deleted/invalid entries — filter them
- */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
 import SearchFilter from '../../components/SearchFilter.tsx';
 import { getAllBlogPosts, getPublishedPostSummaries } from '../../data/cms-helpers';
 
-const posts = getAllBlogPosts();
+const posts = getAllBlogPosts().filter((p) => !p._deleted && p.title);
 const postSummaries = getPublishedPostSummaries();
 ---
 

@@ -7,11 +7,13 @@ The site is partially built. Your job is to identify and fix issues, then extend
 ## Setup
 
 ```bash
+git clone https://github.com/joegoldwasser/interview-astro-challenge.git
+cd interview-astro-challenge
 npm install
 npm run dev
 ```
 
-The site runs at `http://localhost:4321`.
+The site runs at `http://localhost:4321`. Navigate to `/blog` to see the current state.
 
 ## Context
 
@@ -30,7 +32,7 @@ The site runs at `http://localhost:4321`.
 Navigate to `/blog`. There's a React search/filter component (`SearchFilter.tsx`) that exists but is incomplete and not wired up to the page.
 
 1. Add the `SearchFilter` component to the blog index page so it renders and is interactive in the browser
-2. Pass it the blog post data it needs
+2. Pass it the blog post data it needs (hint: `postSummaries` is already computed in the page's frontmatter)
 3. Complete the component so it filters posts by title and excerpt as the user types
 4. Display filtered results — your choice on approach
 
