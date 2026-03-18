@@ -19,30 +19,34 @@ The site runs at `http://localhost:4321`.
 - Blog posts can link to other blog posts via **reference IDs** (not URLs)
 - Blog posts can also link to external pages via **direct URLs**
 - Some CMS content may be deleted or incomplete
+- **New to Astro?** That's okay. Astro is similar to Next.js or other component frameworks. Files in `src/pages/` are routes, `.astro` files are templates with a frontmatter block (`---`) for server-side logic. The key difference: React components render as static HTML by default. To make a component interactive in the browser, look up Astro's `client:` directives in the [docs](https://docs.astro.build/en/guides/framework-components/#hydrating-interactive-components).
 
 ---
 
-## Task 1: Fix the Blog
+## Task 1: Add the Interactive Search Island
 
-Navigate to `/blog`. You'll notice a broken card at the bottom of the list.
+**Files:** `src/components/SearchFilter.tsx` and `src/pages/blog/index.astro`
+
+Navigate to `/blog`. There's a React search/filter component (`SearchFilter.tsx`) that exists but is incomplete and not wired up to the page.
+
+1. Add the `SearchFilter` component to the blog index page so it renders and is interactive in the browser
+2. Pass it the blog post data it needs
+3. Complete the component so it filters posts by title and excerpt as the user types
+4. Display filtered results — your choice on approach
+
+Once you have data flowing through the component, you may notice some issues with the CMS data. That leads to Task 2.
+
+## Task 2: Fix the Blog Data
 
 **Files:** `src/pages/blog/index.astro` and `src/pages/blog/[slug].astro`
 
-1. **Filter out invalid posts.** The blog index renders all posts from the CMS, including deleted ones. Filter them so only publishable content is displayed. Consider: what makes a post "valid" enough to display?
+You've probably noticed a broken card on the blog index — a post with no title, no author, and a date of December 31, 1969. The CMS data includes deleted and incomplete content that shouldn't be rendered.
+
+1. **Filter out invalid posts.** Only publishable content should display on the blog index and flow into the search component. Consider: what makes a post "valid" enough to display?
 
 2. **Fix internal reference links.** Click into any blog post and look at the links in the body. When one post links to another via a `reference` ID, the current code renders the raw ID as the href (e.g., `<a href="post-003">`). Resolve these to actual blog post URLs using the helpers in `src/data/cms-helpers.ts`.
 
 3. **Handle missing references gracefully.** What should happen if a referenced post has been deleted? The link shouldn't crash the page or point to a dead URL.
-
-## Task 2: Add the Interactive Search Island
-
-**Files:** `src/components/SearchFilter.tsx` and `src/pages/blog/index.astro`
-
-A React search/filter component exists but is incomplete and not wired up:
-
-1. Complete the `SearchFilter` React component so it filters posts by title and excerpt as the user types
-2. Add it to the blog index page as an **interactive island** (hint: Astro's `client:` directives)
-3. Show filtered results within the component, or hide/show the existing post list — your choice on approach
 
 ## Task 3: Add Structured Data (if time allows)
 
