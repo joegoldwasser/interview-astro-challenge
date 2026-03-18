@@ -47,7 +47,7 @@ This form works but has quality issues. Fix them in order:
 The tabs and cards render, but nothing is wired together. Connect them:
 
 - **3a:** Make the category tabs filter posts when clicked
-- **3b:** Add a search input that filters by title and excerpt
+- **3b:** Wire up the search input to filter by title and excerpt
 - **3c:** Show "No posts found" when nothing matches
 
 ## Task 4: Build from Scratch (~5 min, stretch)

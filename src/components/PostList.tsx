@@ -6,7 +6,7 @@
  * Wire them up in order:
  *
  * 3a: Make the category tabs work — click a tab, filter the posts
- * 3b: Add a search input that filters by title and excerpt
+ * 3b: Wire up the search input to filter by title and excerpt
  * 3c: Show "No posts found" when filters match nothing
  */
 import { useState } from 'react';
@@ -30,7 +30,13 @@ export default function PostList({ posts }: PostListProps) {
 
   return (
     <div>
-      {/* TODO (3b): Add a search input here that updates searchQuery */}
+      {/* Search input — TODO (3b): wire this up to filter posts by title and excerpt */}
+      <input
+        type="text"
+        placeholder="Search articles..."
+        value={searchQuery}
+        style={styles.searchInput}
+      />
 
       {/* Category tabs */}
       <div style={styles.tabs}>
