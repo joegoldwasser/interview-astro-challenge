@@ -8,7 +8,12 @@ A 45-minute live coding interview for a Frontend Web Engineer role at Boldin. Th
 
 - **Role:** React engineer building components inside an Astro marketing site. Astro scaffolding and CMS integration already handled by another team member.
 - **Candidate profile:** Jess Wayde, 15 years experience, mostly Drupal agencies. React listed as a skill but depth is unknown.
-- **Key signals:** Reading unfamiliar code (A), state management instincts (E), edge case handling (F), communication while coding (H), ability to spot when AI-generated code isn't clean.
+- **Key signals we're evaluating:**
+  - **(A) Reading unfamiliar code** — Can they orient in a new codebase and trace bugs?
+  - **(E) State management instincts** — Do they know when/how to use React state patterns?
+  - **(F) Edge case handling** — Do they think about what can go wrong?
+  - **(H) Communication** — Do they explain their thinking while coding?
+  - **AI review instinct** — Can they spot when generated code isn't clean?
 - **Platform:** StackBlitz (primary), local clone as fallback.
 
 ## Interview Flow
@@ -54,10 +59,11 @@ The candidate sees a `/blog` page with four sections, each rendering a React com
 - Cause: `publishedAt` (a string) is passed directly to `.toLocaleDateString()` without `new Date()` wrapper
 - Hint in code: Comment says `// Hint: publishedAt is a string, not a Date object`
 
-**1c: Null rendering**
-- Shows "By null" for author and empty space for excerpt when fields are missing
-- Cause: No conditional rendering for nullable fields
-- Hint in code: Comment says `// Hint: not all posts have an author or excerpt`
+**1c: Missing conditional render**
+- The component receives an `isNew` boolean prop but renders the "NEW" badge unconditionally — it always shows even when `isNew` is false
+- Cause: `<span className="badge">NEW</span>` is not wrapped in a conditional
+- Hint in code: Comment says `// Hint: the NEW badge should only show when isNew is true`
+- Note: PostCard uses its own `PostCardProps` interface (not BlogPostSummary) to allow for the `isNew` and `postSlug` prop name bugs
 
 ### Evaluation criteria
 - Can they read existing code and trace the bug
