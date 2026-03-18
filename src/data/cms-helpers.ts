@@ -107,14 +107,13 @@ export function getSiteInfo() {
 }
 
 /**
- * Simulates a slow API call. Used for Task 3 (async data fetching).
- * Returns featured/promoted posts after a delay.
+ * Simulates a newsletter signup API call.
+ * Returns after a 1 second delay.
  */
-export function fetchFeaturedPosts(): Promise<BlogPostSummary[]> {
+export function submitNewsletter(email: string): Promise<{ success: boolean }> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const posts = getPublishedPostSummaries();
-      resolve(posts.slice(0, 2));
-    }, 1500);
+      resolve({ success: true });
+    }, 1000);
   });
 }

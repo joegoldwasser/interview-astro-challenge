@@ -99,6 +99,76 @@
     },
     {
       "id": "post-004",
+      "slug": "spousal-social-security",
+      "title": "Spousal Social Security Benefits Explained",
+      "author": "Steve Chen",
+      "publishedAt": "2026-03-01",
+      "category": "Social Security",
+      "excerpt": "Married couples have unique Social Security strategies that can significantly boost their combined lifetime benefits.",
+      "body": null,
+      "seo": {
+        "title": "Spousal Social Security Benefits | Boldin",
+        "description": "Learn how married couples can maximize Social Security with spousal benefit strategies."
+      }
+    },
+    {
+      "id": "post-005",
+      "slug": "social-security-taxes",
+      "title": "Will You Pay Taxes on Social Security?",
+      "author": "Steve Chen",
+      "publishedAt": "2026-03-10",
+      "category": "Social Security",
+      "excerpt": "Up to 85% of your Social Security benefits could be taxable. Here's how to calculate your exposure and reduce it.",
+      "body": null,
+      "seo": {
+        "title": "Social Security Tax Guide | Boldin",
+        "description": "Find out if your Social Security benefits are taxable and strategies to minimize the tax impact."
+      }
+    },
+    {
+      "id": "post-006",
+      "slug": "tax-loss-harvesting",
+      "title": "Tax-Loss Harvesting: A Beginner's Guide",
+      "author": "Steve Chen",
+      "publishedAt": "2026-03-05",
+      "category": "Tax Planning",
+      "excerpt": "Selling investments at a loss to offset gains sounds counterintuitive, but it's one of the most effective tax strategies available.",
+      "body": null,
+      "seo": {
+        "title": "Tax-Loss Harvesting Guide | Boldin",
+        "description": "Learn how to use tax-loss harvesting to reduce your tax bill and boost after-tax returns."
+      }
+    },
+    {
+      "id": "post-007",
+      "slug": "retirement-spending-rules",
+      "title": "Beyond the 4% Rule: Smarter Retirement Spending",
+      "author": "Steve Chen",
+      "publishedAt": "2026-02-15",
+      "category": "Budgeting",
+      "excerpt": "The 4% rule is a starting point, not a strategy. Modern approaches adapt your spending to market conditions and your actual needs.",
+      "body": null,
+      "seo": {
+        "title": "Retirement Spending Strategies Beyond the 4% Rule | Boldin",
+        "description": "Explore dynamic spending strategies that go beyond the outdated 4% rule for a more secure retirement."
+      }
+    },
+    {
+      "id": "post-008",
+      "slug": "estate-planning-basics",
+      "title": "Estate Planning 101: What Every Retiree Needs",
+      "author": "Steve Chen",
+      "publishedAt": "2026-03-12",
+      "category": "Estate Planning",
+      "excerpt": "Wills, trusts, beneficiary designations — estate planning doesn't have to be overwhelming. Start with these essentials.",
+      "body": null,
+      "seo": {
+        "title": "Estate Planning Basics for Retirees | Boldin",
+        "description": "Essential estate planning guide covering wills, trusts, and beneficiary designations for retirees."
+      }
+    },
+    {
+      "id": "post-099",
       "slug": "deleted-post-placeholder",
       "title": null,
       "author": null,

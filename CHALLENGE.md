@@ -1,6 +1,4 @@
-# Front-End Web Engineer — Interview Challenge
-
-This is an Astro project with React components for a marketing site. The project scaffolding and page wiring is already done — **you only need to edit the React component files** (`.tsx`).
+# Frontend Engineer — Interview Challenge
 
 ## Setup
 
@@ -13,43 +11,59 @@ Open `http://localhost:4321/blog` to see the challenge page.
 
 ## How This Works
 
-The blog page has three sections, each rendering a React component. All three components are already wired into the page — you just need to implement them. Each `.tsx` file has a description of what to build.
+The page has four sections, each with a React component that needs work. **You only need to edit files in `src/components/`** — everything else is already wired up.
 
-**You only need to edit files in `src/components/`.**
+Each component file has a comment at the top explaining what to do, and TODO comments at the specific spots where code needs to change.
 
-Data helpers are available in `src/data/cms-helpers.ts` — browse the types and functions there. Blog post data is in `src/data/cms.json`.
+**New to Astro?** That's fine. Astro is the page framework — think of it like Next.js. You're only editing React `.tsx` files, so you don't need to know Astro.
+
+## Key Files
+
+| File | What it does |
+|---|---|
+| `src/components/PostCard.tsx` | Task 1 — blog post card with bugs to fix |
+| `src/components/NewsletterSignup.tsx` | Task 2 — working form with quality issues to improve |
+| `src/components/PostList.tsx` | Task 3 — post list with tabs to wire up |
+| `src/components/RelatedPosts.tsx` | Task 4 — empty component to build (stretch) |
+| `src/data/cms-helpers.ts` | Data helpers and types (read-only reference) |
 
 ---
 
-## Task 1: Category Filter Tabs (Easy)
+## Task 1: Fix the Bugs (~5 min)
 
-**File:** `src/components/CategoryFilter.tsx`
+**File:** `src/components/PostCard.tsx`
 
-Build a tabbed filter that lets users browse posts by category. Props are already passed in.
+This card component has 3 visible bugs. Look at the cards on the page, then find and fix each bug in the code.
 
-- Show a tab for each unique category, plus "All"
-- Highlight the active tab
-- Display matching posts as cards with title (linked), excerpt, author, and date
+- **1a:** The title link goes to the wrong URL
+- **1b:** The date isn't formatted nicely
+- **1c:** The "NEW" badge shows on every card, even when it shouldn't
 
-## Task 2: Search with Highlighted Matches (Medium)
+## Task 2: Improve This Component (~10 min)
 
-**File:** `src/components/SearchFilter.tsx`
+**File:** `src/components/NewsletterSignup.tsx`
 
-Build a search that filters posts and highlights matching text in results.
+This form works but has quality issues. Fix them in order:
 
-- Filter by title and excerpt as the user types
-- Only show results after 2+ characters typed
-- Bold/highlight the matching substring in results
-- Handle "no results" state
+- **2a:** Add email validation — it currently submits empty/invalid emails
+- **2b:** Wire up loading/success/error feedback — the status state exists but isn't used
+- **2c:** Look at how `isValid` is computed — anything you'd change?
 
-## Task 3: Async Data Fetching (Harder)
+## Task 3: Extend This Component (~10 min)
 
-**File:** `src/components/FeaturedPosts.tsx`
+**File:** `src/components/PostList.tsx`
 
-Build a component that fetches data asynchronously and handles loading/error states.
+The tabs and cards render, but nothing is wired together. Connect them:
 
-- Call `fetchFeaturedPosts()` from `cms-helpers.ts` on mount
-- Show a loading indicator while fetching (has a 1.5s built-in delay)
-- Display results once loaded
-- Add a "Refresh" button that re-fetches
-- Handle errors gracefully
+- **3a:** Make the category tabs filter posts when clicked
+- **3b:** Add a search input that filters by title and excerpt
+- **3c:** Show "No posts found" when nothing matches
+
+## Task 4: Build from Scratch (~5 min, stretch)
+
+**File:** `src/components/RelatedPosts.tsx`
+
+Build a related posts widget. The props and types are defined — implement the logic:
+
+- **4a:** Show up to 3 posts in the same category, excluding the current post
+- **4b:** Handle the case where there are no related posts

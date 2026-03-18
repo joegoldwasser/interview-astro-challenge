@@ -1,34 +1,74 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CategoryFilter from '../../components/CategoryFilter.tsx';
-import SearchFilter from '../../components/SearchFilter.tsx';
-import FeaturedPosts from '../../components/FeaturedPosts.tsx';
+import PostCard from '../../components/PostCard.tsx';
+import NewsletterSignup from '../../components/NewsletterSignup.tsx';
+import PostList from '../../components/PostList.tsx';
+import RelatedPosts from '../../components/RelatedPosts.tsx';
 import { getPublishedPostSummaries } from '../../data/cms-helpers';
 
 const posts = getPublishedPostSummaries();
+const firstPost = posts[0];
+const secondPost = posts[1];
 ---
 
 <BaseLayout title="Blog | Boldin" description="Retirement planning insights and guides.">
-  <h1>Blog</h1>
+  <h1>Interview Challenge</h1>
+  <p class="intro">Open <code>CHALLENGE.md</code> for instructions. You only need to edit files in <code>src/components/</code>.</p>
 
   <section class="task-section">
-    <h2>Task 1: Category Filter</h2>
-    <CategoryFilter client:load posts={posts} />
+    <h2>Task 1: Fix the Bugs</h2>
+    <p class="task-file">File: <code>src/components/PostCard.tsx</code></p>
+    <PostCard
+      client:load
+      postSlug={firstPost.slug}
+      title={firstPost.title}
+      excerpt={firstPost.excerpt}
+      author={firstPost.author}
+      publishedAt={firstPost.publishedAt}
+      isNew={true}
+    />
+    <PostCard
+      client:load
+      postSlug={secondPost.slug}
+      title={secondPost.title}
+      excerpt={secondPost.excerpt}
+      author={secondPost.author}
+      publishedAt={secondPost.publishedAt}
+      isNew={false}
+    />
   </section>
 
   <section class="task-section">
-    <h2>Task 2: Search</h2>
-    <SearchFilter client:load posts={posts} />
+    <h2>Task 2: Improve This Component</h2>
+    <p class="task-file">File: <code>src/components/NewsletterSignup.tsx</code></p>
+    <NewsletterSignup client:load />
   </section>
 
   <section class="task-section">
-    <h2>Task 3: Featured Posts</h2>
-    <FeaturedPosts client:load />
+    <h2>Task 3: Extend This Component</h2>
+    <p class="task-file">File: <code>src/components/PostList.tsx</code></p>
+    <PostList client:load posts={posts} />
+  </section>
+
+  <section class="task-section">
+    <h2>Task 4: Build This Component (stretch)</h2>
+    <p class="task-file">File: <code>src/components/RelatedPosts.tsx</code></p>
+    <RelatedPosts
+      client:load
+      currentSlug={firstPost.slug}
+      currentCategory={firstPost.category}
+      allPosts={posts}
+    />
   </section>
 </BaseLayout>
 
 <style>
-  h1 { margin-bottom: 2rem; }
-  h2 { font-size: 1.25rem; color: #6b7280; margin-bottom: 1rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem; }
-  .task-section { margin-bottom: 3rem; }
+  h1 { margin-bottom: 0.5rem; }
+  .intro { color: #6b7280; margin-bottom: 2rem; }
+  .intro code { background: #f3f4f6; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9rem; }
+  h2 { font-size: 1.25rem; color: #1a1a1a; margin-bottom: 0.25rem; }
+  .task-file { font-size: 0.85rem; color: #6b7280; margin-bottom: 1rem; }
+  .task-file code { background: #f3f4f6; padding: 0.15rem 0.4rem; border-radius: 3px; }
+  .task-section { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #e5e7eb; }
+  .task-section:last-child { border-bottom: none; }
 </style>
