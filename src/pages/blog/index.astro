@@ -1,40 +1,34 @@
 ---
-/**
- * Blog index page — lists all blog posts from the CMS.
- *
- * Task 1: Add the SearchFilter component to this page as an interactive island.
- *         The postSummaries variable below is ready to pass as a prop.
- *
- * Task 2: The card list below renders ALL posts, including deleted ones.
- *         You'll see a broken card at the bottom. Filter it out.
- */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPostCard from '../../components/BlogPostCard.astro';
-import { getAllBlogPosts, getPublishedPostSummaries } from '../../data/cms-helpers';
+import CategoryFilter from '../../components/CategoryFilter.tsx';
+import SearchFilter from '../../components/SearchFilter.tsx';
+import FeaturedPosts from '../../components/FeaturedPosts.tsx';
+import { getPublishedPostSummaries } from '../../data/cms-helpers';
 
-const posts = getAllBlogPosts();
-const postSummaries = getPublishedPostSummaries();
+const posts = getPublishedPostSummaries();
 ---
 
 <BaseLayout title="Blog | Boldin" description="Retirement planning insights and guides.">
   <h1>Blog</h1>
 
-  <!-- Task 1: Add SearchFilter here. postSummaries is available to pass as a prop. -->
+  <section class="task-section">
+    <h2>Task 1: Category Filter</h2>
+    <CategoryFilter client:load posts={posts} />
+  </section>
 
-  <section>
-    {posts.map((post) => (
-      <BlogPostCard
-        title={post.title}
-        slug={post.slug}
-        excerpt={post.excerpt}
-        author={post.author}
-        publishedAt={post.publishedAt}
-        category={post.category}
-      />
-    ))}
+  <section class="task-section">
+    <h2>Task 2: Search</h2>
+    <SearchFilter client:load posts={posts} />
+  </section>
+
+  <section class="task-section">
+    <h2>Task 3: Featured Posts</h2>
+    <FeaturedPosts client:load />
   </section>
 </BaseLayout>
 
 <style>
   h1 { margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; color: #6b7280; margin-bottom: 1rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem; }
+  .task-section { margin-bottom: 3rem; }
 </style>

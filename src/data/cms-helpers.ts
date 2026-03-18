@@ -22,8 +22,8 @@ export interface ContentBlock {
   type: 'paragraph' | 'heading' | 'link';
   text: string;
   level?: number;
-  reference?: string; // ID of another content document
-  href?: string; // External URL
+  reference?: string;
+  href?: string;
   external?: boolean;
 }
 
@@ -61,21 +61,29 @@ export interface BlogPostSummary {
   title: string;
   excerpt: string;
   category: string;
+  author: string;
+  publishedAt: string;
 }
 
 export function getAllBlogPosts(): BlogPost[] {
   return cmsData.blogPosts as BlogPost[];
 }
 
+export function getPublishedPosts(): BlogPost[] {
+  return (cmsData.blogPosts as BlogPost[]).filter(
+    (p) => !p._deleted && p.title && p.slug
+  );
+}
+
 export function getPublishedPostSummaries(): BlogPostSummary[] {
-  return (cmsData.blogPosts as BlogPost[])
-    .filter((p) => !p._deleted && p.title && p.slug)
-    .map((p) => ({
-      slug: p.slug,
-      title: p.title!,
-      excerpt: p.excerpt!,
-      category: p.category!,
-    }));
+  return getPublishedPosts().map((p) => ({
+    slug: p.slug,
+    title: p.title!,
+    excerpt: p.excerpt!,
+    category: p.category!,
+    author: p.author!,
+    publishedAt: p.publishedAt!,
+  }));
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
@@ -96,4 +104,17 @@ export function getSiteNav(): NavItem[] {
 
 export function getSiteInfo() {
   return cmsData.site;
+}
+
+/**
+ * Simulates a slow API call. Used for Task 3 (async data fetching).
+ * Returns featured/promoted posts after a delay.
+ */
+export function fetchFeaturedPosts(): Promise<BlogPostSummary[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const posts = getPublishedPostSummaries();
+      resolve(posts.slice(0, 2));
+    }, 1500);
+  });
 }

@@ -1,8 +1,6 @@
 # Front-End Web Engineer — Interview Challenge
 
-This is a small Astro project simulating a marketing site powered by a headless CMS.
-
-The CMS data is mocked in `src/data/cms.json` and accessed via helper functions in `src/data/cms-helpers.ts`. The site is partially built — your job is to fix issues and extend it.
+This is an Astro project with React components for a marketing site. The project scaffolding and page wiring is already done — **you only need to edit the React component files** (`.tsx`).
 
 ## Setup
 
@@ -11,57 +9,47 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:4321/blog` to see the current state.
+Open `http://localhost:4321/blog` to see the challenge page.
 
-## Context
+## How This Works
 
-- This marketing site links to an external **Rails/React application** at `app.boldin.com`
-- Blog posts can link to **other blog posts** via reference IDs (not URLs)
-- Blog posts can link to **external pages** via direct URLs
-- Some CMS content may be deleted or incomplete
-- **New to Astro?** That's fine — Astro works like Next.js. Files in `src/pages/` are routes. `.astro` files have a frontmatter block (`---`) for server-side logic and HTML below it. The key difference from a normal React app: **React components render as static HTML by default**. To make one interactive in the browser, you need Astro's `client:` directives — see the [docs](https://docs.astro.build/en/guides/framework-components/#hydrating-interactive-components).
+The blog page has three sections, each rendering a React component. All three components are already wired into the page — you just need to implement them. Each `.tsx` file has a description of what to build.
 
-## Key files
+**You only need to edit files in `src/components/`.**
 
-| File | What it does |
-|---|---|
-| `src/data/cms.json` | Mock CMS content (blog posts, landing pages) |
-| `src/data/cms-helpers.ts` | Helper functions to query the CMS data |
-| `src/pages/blog/index.astro` | Blog listing page |
-| `src/pages/blog/[slug].astro` | Individual blog post page (one per post) |
-| `src/components/SearchFilter.tsx` | React search component (incomplete) |
+Data helpers are available in `src/data/cms-helpers.ts` — browse the types and functions there. Blog post data is in `src/data/cms.json`.
 
 ---
 
-## Task 1: Add the Interactive Search
+## Task 1: Category Filter Tabs (Easy)
 
-**Files:** `src/components/SearchFilter.tsx` and `src/pages/blog/index.astro`
+**File:** `src/components/CategoryFilter.tsx`
 
-A React search component exists at `SearchFilter.tsx` but is incomplete and not connected to the page.
+Build a tabbed filter that lets users browse posts by category. Props are already passed in.
 
-1. Add `SearchFilter` to the blog index page so it renders **and is interactive** in the browser
-2. Pass it the blog post data — `postSummaries` is already computed in the page frontmatter
-3. Complete the component: filter posts by title and excerpt as the user types
-4. Display the filtered results below the search input
+- Show a tab for each unique category, plus "All"
+- Highlight the active tab
+- Display matching posts as cards with title (linked), excerpt, author, and date
 
-## Task 2: Fix the Blog Data
+## Task 2: Search with Highlighted Matches (Medium)
 
-**Files:** `src/pages/blog/index.astro` and `src/pages/blog/[slug].astro`
+**File:** `src/components/SearchFilter.tsx`
 
-Look at the blog index — there's a broken card at the bottom (no title, "December 31, 1969"). Click into any post and check the links in the body.
+Build a search that filters posts and highlights matching text in results.
 
-1. **Filter out deleted/invalid posts** from the blog index card list
-2. **Fix internal reference links** — they currently render the raw reference ID as the href (e.g. `<a href="post-003">`). Resolve them to real URLs like `/blog/roth-conversion-guide` using the helpers in `cms-helpers.ts`
-3. **Handle missing references** — if a referenced post was deleted, the link shouldn't crash or point to a dead URL
+- Filter by title and excerpt as the user types
+- Only show results after 2+ characters typed
+- Bold/highlight the matching substring in results
+- Handle "no results" state
 
-## Task 3: Add Structured Data (if time allows)
+## Task 3: Async Data Fetching (Harder)
 
-**File:** `src/pages/blog/[slug].astro`
+**File:** `src/components/FeaturedPosts.tsx`
 
-Add a JSON-LD `BlogPosting` script tag to the page for SEO, using the post's title, author, date, and description.
+Build a component that fetches data asynchronously and handles loading/error states.
 
-## Discussion (if time allows)
-
-- How would you catch broken links if an engineering team changes a URL in the Rails/React app?
-- What would change if this data came from a real CMS API instead of a JSON file?
-- How would you handle a slug change without breaking Google rankings?
+- Call `fetchFeaturedPosts()` from `cms-helpers.ts` on mount
+- Show a loading indicator while fetching (has a 1.5s built-in delay)
+- Display results once loaded
+- Add a "Refresh" button that re-fetches
+- Handle errors gracefully

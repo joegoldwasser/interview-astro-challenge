@@ -1,22 +1,10 @@
 ---
-/**
- * Blog post detail page — one page per post, generated at build time.
- *
- * Task 2: Internal reference links are broken. When a post links to another
- *         post via a reference ID, the code below renders the raw ID as the
- *         href (e.g. <a href="post-003">). Use getBlogPostById() from
- *         cms-helpers.ts to resolve these to real URLs like /blog/roth-conversion-guide.
- *         Also handle the case where a referenced post has been deleted.
- *
- * Task 3: Add a JSON-LD <script> tag with BlogPosting structured data for SEO.
- *         Use the post's title, author, date, and description.
- */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getAllBlogPosts, getBlogPostById } from '../../data/cms-helpers';
+import { getPublishedPosts } from '../../data/cms-helpers';
 import type { ContentBlock } from '../../data/cms-helpers';
 
 export async function getStaticPaths() {
-  const posts = getAllBlogPosts();
+  const posts = getPublishedPosts();
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -51,11 +39,8 @@ const { post } = Astro.props;
           const Tag = `h${block.level}` as any;
           return <Tag>{block.text}</Tag>;
         }
-        if (block.type === 'link') {
-          // BUG: This renders the raw reference ID as the href for internal links.
-          // External links work fine, but internal ones produce <a href="post-003">.
-          const href = block.external ? block.href : block.reference;
-          return <p><a href={href}>{block.text}</a></p>;
+        if (block.type === 'link' && block.href) {
+          return <p><a href={block.href}>{block.text}</a></p>;
         }
       })}
     </div>
@@ -68,13 +53,7 @@ const { post } = Astro.props;
 
 <style>
   header { margin-bottom: 2rem; }
-  .category {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #2563eb;
-    letter-spacing: 0.05em;
-  }
+  .category { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #2563eb; letter-spacing: 0.05em; }
   h1 { font-size: 2rem; margin: 0.5rem 0; }
   .meta { font-size: 0.9rem; color: #6b7280; display: flex; gap: 0.5rem; }
   .body { margin-top: 1.5rem; }

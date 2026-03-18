@@ -1,12 +1,18 @@
 /**
- * Interactive search/filter for blog posts.
- * This is a React "island" — it ships JavaScript to the browser.
+ * Task 2: Search with Highlighted Matches
  *
- * Task 1: This component is incomplete.
- * - Add filtering logic to filter posts by title and excerpt as the user types
- * - Display the filtered results below the search input
+ * Build a search component that filters posts and highlights the matching
+ * text in the results.
+ *
+ * Requirements:
+ * - Text input that filters posts by title and excerpt as the user types
+ * - Only show results when the user has typed 2+ characters
+ * - In the results, highlight (bold) the matching substring within the title and excerpt
+ * - Show "No results found" when nothing matches
+ * - Each result's title should link to /blog/{slug}
+ *
+ * The data is already passed in as props — no fetching needed.
  */
-import { useState } from 'react';
 import type { BlogPostSummary } from '../data/cms-helpers';
 
 interface SearchFilterProps {
@@ -14,17 +20,12 @@ interface SearchFilterProps {
 }
 
 export default function SearchFilter({ posts }: SearchFilterProps) {
-  const [query, setQuery] = useState('');
-
-  // TODO: Add filtering logic here
-
+  // TODO: Implement search with highlighted matches
   return (
-    <div style={{ marginBottom: '2rem' }}>
+    <div>
       <input
         type="text"
         placeholder="Search articles..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
         style={{
           width: '100%',
           padding: '0.75rem 1rem',
@@ -33,7 +34,7 @@ export default function SearchFilter({ posts }: SearchFilterProps) {
           borderRadius: '6px',
         }}
       />
-      {/* TODO: Display filtered results here */}
+      {/* TODO: Filtered results with highlighted matches */}
     </div>
   );
 }
