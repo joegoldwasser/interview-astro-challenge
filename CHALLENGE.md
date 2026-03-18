@@ -1,14 +1,5 @@
 # Frontend Engineer — Interview Challenge
 
-## Setup
-
-```bash
-npm install
-npm run dev
-```
-
-Open `http://localhost:4321/blog` to see the challenge page.
-
 ## How This Works
 
 The page has four sections, each with a React component that needs work. **You only need to edit files in `src/components/`** — everything else is already wired up.
