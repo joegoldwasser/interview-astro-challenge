@@ -56,8 +56,26 @@ export interface NavItem {
   external?: boolean;
 }
 
+export interface BlogPostSummary {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+}
+
 export function getAllBlogPosts(): BlogPost[] {
   return cmsData.blogPosts as BlogPost[];
+}
+
+export function getPublishedPostSummaries(): BlogPostSummary[] {
+  return (cmsData.blogPosts as BlogPost[])
+    .filter((p) => !p._deleted && p.title && p.slug)
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title!,
+      excerpt: p.excerpt!,
+      category: p.category!,
+    }));
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {

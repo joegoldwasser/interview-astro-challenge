@@ -2,10 +2,12 @@
 /**
  * Dynamic blog post page — generates one HTML page per blog post at build time.
  *
- * CANDIDATE TASK: This page has several issues. See CHALLENGE.md Task 2.
- * - Does not handle deleted posts
- * - Does not resolve internal reference links
- * - Does not include JSON-LD structured data
+ * CANDIDATE TASK: See CHALLENGE.md Task 2.
+ * - Internal reference links are broken (renders raw IDs instead of URLs)
+ * - Handle missing/deleted references gracefully
+ *
+ * CANDIDATE TASK: See CHALLENGE.md Task 3.
+ * - Add JSON-LD structured data for SEO
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllBlogPosts, getBlogPostById } from '../../data/cms-helpers';

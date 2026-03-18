@@ -2,16 +2,12 @@
  * An interactive search/filter component for blog posts.
  * This is a React "island" — it ships JavaScript to the browser.
  *
- * CANDIDATE TASK: This component is incomplete. See CHALLENGE.md for details.
+ * CANDIDATE TASK: This component is incomplete. See CHALLENGE.md Task 1.
+ * - Add filtering logic to filter posts by title and excerpt
+ * - Display the filtered results below the search input
  */
 import { useState } from 'react';
-
-interface BlogPostSummary {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-}
+import type { BlogPostSummary } from '../data/cms-helpers';
 
 interface SearchFilterProps {
   posts: BlogPostSummary[];
@@ -21,7 +17,6 @@ export default function SearchFilter({ posts }: SearchFilterProps) {
   const [query, setQuery] = useState('');
 
   // TODO: Candidate implements filtering logic and UI
-  // See CHALLENGE.md Task 3
 
   return (
     <div style={{ marginBottom: '2rem' }}>

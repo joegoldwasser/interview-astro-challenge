@@ -2,21 +2,25 @@
 /**
  * Blog index page — lists all blog posts from the CMS.
  *
- * CANDIDATE TASK: This page is partially complete. See CHALLENGE.md Task 1.
- * Currently it displays all posts including deleted ones, and doesn't use
- * the SearchFilter component.
+ * CANDIDATE TASK: See CHALLENGE.md Task 1.
+ * - Add the SearchFilter component as an interactive island
+ * - The postSummaries data is ready to pass to it
+ *
+ * CANDIDATE TASK: See CHALLENGE.md Task 2.
+ * - The full posts list includes deleted/invalid entries — filter them
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
-import { getAllBlogPosts } from '../../data/cms-helpers';
+import { getAllBlogPosts, getPublishedPostSummaries } from '../../data/cms-helpers';
 
 const posts = getAllBlogPosts();
+const postSummaries = getPublishedPostSummaries();
 ---
 
 <BaseLayout title="Blog | Boldin" description="Retirement planning insights and guides.">
   <h1>Blog</h1>
 
-  <!-- TODO: Add SearchFilter island here (Task 3) -->
+  <!-- TODO: Add SearchFilter island here (Task 1) — postSummaries is available to pass as a prop -->
 
   <section>
     {posts.map((post) => (
