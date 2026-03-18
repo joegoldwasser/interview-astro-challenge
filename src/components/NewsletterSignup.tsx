@@ -5,7 +5,7 @@
  * But the code has quality issues. Fix them in order:
  *
  * 2a: Add email validation before submitting (basic is fine — no regex needed)
- * 2b: Wire up the loading/success/error states so the user gets feedback
+ * 2b: Wire up the status state so the user gets feedback when they submit
  * 2c: Look at how isValid is computed — anything you'd change?
  */
 import { useState, useEffect } from 'react';
@@ -13,7 +13,6 @@ import { submitNewsletter } from '../data/cms-helpers';
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   // 2c: Anything you'd change about how isValid is computed?
@@ -23,12 +22,10 @@ export default function NewsletterSignup() {
   }, [email]);
 
   const handleSubmit = async () => {
-    // TODO (2a): Validate the email before submitting. Set error state if invalid.
+    // TODO (2a): Validate the email before submitting.
     //   Basic validation is fine — no need for a full email regex.
-    //   The error state variable above is ready to use.
 
-    // TODO (2b): Use the status state to show loading/success/error feedback.
-    //   Status is already declared above with types: 'idle' | 'loading' | 'success' | 'error'
+    // TODO (2b): Use the status state to show feedback.
     //   Update it at the right points in this function.
     await submitNewsletter(email);
   };
@@ -50,9 +47,6 @@ export default function NewsletterSignup() {
           Subscribe
         </button>
       </div>
-
-      {/* Error message (for 2a) */}
-      {error && <p style={styles.error}>{error}</p>}
 
       {/*
         TODO (2b): Show feedback based on the status state.
@@ -101,13 +95,7 @@ const styles: Record<string, React.CSSProperties> = {
     cursor: 'pointer',
     whiteSpace: 'nowrap',
   },
-  error: {
-    color: '#dc2626',
-    fontSize: '0.85rem',
-    marginTop: '0.5rem',
-  },
-  success: {
-    color: '#16a34a',
+  message: {
     fontSize: '0.85rem',
     marginTop: '0.5rem',
   },
