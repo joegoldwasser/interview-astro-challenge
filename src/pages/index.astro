@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSiteInfo } from '../data/cms-helpers';
+
+const site = getSiteInfo();
+---
+
+<BaseLayout title={`${site.name} - ${site.tagline}`} description={site.tagline}>
+  <div class="hero">
+    <h1>{site.tagline}</h1>
+    <p>Welcome to the Boldin marketing site interview challenge.</p>
+    <p>See <a href="/blog">the blog</a> to view CMS-driven content.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 4rem 0;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    color: #4b5563;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+</style>

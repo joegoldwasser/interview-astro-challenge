@@ -1,0 +1,135 @@
+{
+  "site": {
+    "name": "Boldin",
+    "tagline": "Financial planning for real life",
+    "nav": [
+      { "label": "Blog", "href": "/blog" },
+      { "label": "Features", "href": "/features" },
+      { "label": "Pricing", "href": "/pricing" },
+      { "label": "Log In", "href": "https://app.boldin.com/login", "external": true },
+      { "label": "Get Started Free", "href": "https://app.boldin.com/signup", "external": true }
+    ]
+  },
+  "blogPosts": [
+    {
+      "id": "post-001",
+      "slug": "maximize-social-security",
+      "title": "How to Maximize Your Social Security Benefits",
+      "author": "Steve Chen",
+      "publishedAt": "2026-01-15",
+      "category": "Social Security",
+      "excerpt": "Understanding when and how to claim Social Security can mean a difference of hundreds of thousands of dollars over your lifetime.",
+      "body": [
+        { "type": "paragraph", "text": "Social Security is the foundation of most Americans' retirement income. Yet most people leave money on the table by claiming too early or without a strategy." },
+        { "type": "heading", "level": 2, "text": "When Should You Claim?" },
+        { "type": "paragraph", "text": "You can claim as early as 62, but your benefit increases roughly 8% for each year you delay until age 70. For someone with a full retirement age benefit of $2,000/month:" },
+        { "type": "paragraph", "text": "At 62: $1,400/month. At 67: $2,000/month. At 70: $2,480/month." },
+        { "type": "heading", "level": 2, "text": "Try Our Free Calculator" },
+        { "type": "paragraph", "text": "Use the Boldin Social Security calculator to model different claiming strategies and see the lifetime impact." },
+        {
+          "type": "link",
+          "text": "our Roth conversion guide",
+          "reference": "post-003"
+        },
+        {
+          "type": "link",
+          "text": "Open the Planner",
+          "href": "https://app.boldin.com/planner/social-security",
+          "external": true
+        }
+      ],
+      "seo": {
+        "title": "Maximize Social Security Benefits - Claiming Strategies | Boldin",
+        "description": "Learn when to claim Social Security to maximize your lifetime benefits. Free calculator and expert strategies."
+      }
+    },
+    {
+      "id": "post-002",
+      "slug": "retirement-budget-planning",
+      "title": "How to Build a Retirement Budget That Actually Works",
+      "author": "Steve Chen",
+      "publishedAt": "2026-02-03",
+      "category": "Budgeting",
+      "excerpt": "Most retirement budgets fail because they don't account for how spending changes over time. Here's a better approach.",
+      "body": [
+        { "type": "paragraph", "text": "The conventional wisdom says you need 80% of your pre-retirement income. But that one-size-fits-all rule ignores how dramatically spending shifts in retirement." },
+        { "type": "heading", "level": 2, "text": "The Three Phases of Retirement Spending" },
+        { "type": "paragraph", "text": "Early retirement (65-75): Active years with travel and hobbies — spending is often higher than expected." },
+        { "type": "paragraph", "text": "Middle retirement (75-85): Spending typically decreases as activity slows." },
+        { "type": "paragraph", "text": "Late retirement (85+): Healthcare costs can cause spending to spike again." },
+        {
+          "type": "link",
+          "text": "Social Security strategies",
+          "reference": "post-001"
+        }
+      ],
+      "seo": {
+        "title": "Retirement Budget Planning Guide | Boldin",
+        "description": "Build a retirement budget that accounts for changing spending patterns. Free tools and expert guidance."
+      }
+    },
+    {
+      "id": "post-003",
+      "slug": "roth-conversion-guide",
+      "title": "Roth Conversions: The Complete Guide for 2026",
+      "author": "Steve Chen",
+      "publishedAt": "2026-02-20",
+      "category": "Tax Planning",
+      "excerpt": "A Roth conversion can save you hundreds of thousands in taxes over your lifetime — if you do it strategically.",
+      "body": [
+        { "type": "paragraph", "text": "Converting traditional IRA funds to a Roth IRA means paying taxes now to get tax-free growth and withdrawals later. The key is doing it in the right years." },
+        { "type": "heading", "level": 2, "text": "When Roth Conversions Make Sense" },
+        { "type": "paragraph", "text": "The sweet spot is typically between retirement and age 73 (when RMDs begin), when your income — and therefore tax bracket — is lower than during your working years." },
+        {
+          "type": "link",
+          "text": "retirement budget guide",
+          "reference": "post-002"
+        },
+        {
+          "type": "link",
+          "text": "Roth Conversion Calculator",
+          "href": "https://app.boldin.com/planner/roth-conversion",
+          "external": true
+        }
+      ],
+      "seo": {
+        "title": "Roth Conversion Guide 2026 - Strategy & Calculator | Boldin",
+        "description": "Complete guide to Roth IRA conversions. Learn when to convert, how much, and model the tax impact with our free calculator."
+      }
+    },
+    {
+      "id": "post-004",
+      "slug": "deleted-post-placeholder",
+      "title": null,
+      "author": null,
+      "publishedAt": null,
+      "category": null,
+      "excerpt": null,
+      "body": null,
+      "seo": null,
+      "_deleted": true
+    }
+  ],
+  "landingPages": [
+    {
+      "id": "landing-001",
+      "slug": "features",
+      "title": "Everything You Need to Plan Your Retirement",
+      "hero": {
+        "headline": "Plan Smarter. Retire Confidently.",
+        "subheadline": "Boldin gives you the tools to build, test, and optimize your retirement plan.",
+        "ctaText": "Start Your Free Plan",
+        "ctaLink": "https://app.boldin.com/signup"
+      },
+      "features": [
+        { "title": "Social Security Optimizer", "description": "Model every claiming strategy and find the one that maximizes your lifetime benefit.", "icon": "calculator" },
+        { "title": "Tax Planning", "description": "See the tax impact of Roth conversions, withdrawal strategies, and more.", "icon": "receipt" },
+        { "title": "Spending Forecasts", "description": "Project your spending through every phase of retirement.", "icon": "chart" }
+      ],
+      "seo": {
+        "title": "Retirement Planning Features | Boldin",
+        "description": "Explore Boldin's retirement planning tools: Social Security optimizer, tax planning, spending forecasts, and more."
+      }
+    }
+  ]
+}

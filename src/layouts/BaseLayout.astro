@@ -1,0 +1,63 @@
+---
+import { getSiteNav, getSiteInfo } from '../data/cms-helpers';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const nav = getSiteNav();
+const site = getSiteInfo();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: system-ui, sans-serif; color: #1a1a1a; line-height: 1.6; }
+      a { color: #2563eb; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+      header .logo { font-size: 1.25rem; font-weight: 700; color: #1a1a1a; }
+      nav { display: flex; gap: 1.5rem; align-items: center; }
+      nav a { color: #4b5563; font-size: 0.9rem; }
+      nav a.cta { background: #2563eb; color: #fff; padding: 0.5rem 1rem; border-radius: 6px; }
+      nav a.cta:hover { background: #1d4ed8; text-decoration: none; }
+
+      main { max-width: 800px; margin: 2rem auto; padding: 0 1.5rem; }
+
+      footer { border-top: 1px solid #e5e7eb; padding: 2rem; text-align: center; color: #6b7280; font-size: 0.85rem; margin-top: 4rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo">{site.name}</a>
+      <nav>
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            class={item.label === 'Get Started Free' ? 'cta' : ''}
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
+    </footer>
+  </body>
+</html>

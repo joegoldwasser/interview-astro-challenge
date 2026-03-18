@@ -1,0 +1,37 @@
+---
+/**
+ * Blog index page — lists all blog posts from the CMS.
+ *
+ * CANDIDATE TASK: This page is partially complete. See CHALLENGE.md Task 1.
+ * Currently it displays all posts including deleted ones, and doesn't use
+ * the SearchFilter component.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+import { getAllBlogPosts } from '../../data/cms-helpers';
+
+const posts = getAllBlogPosts();
+---
+
+<BaseLayout title="Blog | Boldin" description="Retirement planning insights and guides.">
+  <h1>Blog</h1>
+
+  <!-- TODO: Add SearchFilter island here (Task 3) -->
+
+  <section>
+    {posts.map((post) => (
+      <BlogPostCard
+        title={post.title}
+        slug={post.slug}
+        excerpt={post.excerpt}
+        author={post.author}
+        publishedAt={post.publishedAt}
+        category={post.category}
+      />
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  h1 { margin-bottom: 2rem; }
+</style>

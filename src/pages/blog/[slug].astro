@@ -1,0 +1,81 @@
+---
+/**
+ * Dynamic blog post page — generates one HTML page per blog post at build time.
+ *
+ * CANDIDATE TASK: This page has several issues. See CHALLENGE.md Task 2.
+ * - Does not handle deleted posts
+ * - Does not resolve internal reference links
+ * - Does not include JSON-LD structured data
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllBlogPosts, getBlogPostById } from '../../data/cms-helpers';
+import type { ContentBlock } from '../../data/cms-helpers';
+
+export async function getStaticPaths() {
+  const posts = getAllBlogPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<BaseLayout title={post.seo?.title ?? post.title ?? 'Blog Post'} description={post.seo?.description}>
+  <article>
+    <header>
+      <span class="category">{post.category}</span>
+      <h1>{post.title}</h1>
+      <div class="meta">
+        <span>By {post.author}</span>
+        <span>&middot;</span>
+        <time datetime={post.publishedAt}>
+          {post.publishedAt && new Date(post.publishedAt).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })}
+        </time>
+      </div>
+    </header>
+
+    <div class="body">
+      {post.body?.map((block: ContentBlock) => {
+        if (block.type === 'paragraph') {
+          return <p>{block.text}</p>;
+        }
+        if (block.type === 'heading') {
+          const Tag = `h${block.level}` as any;
+          return <Tag>{block.text}</Tag>;
+        }
+        if (block.type === 'link') {
+          // BUG: Internal reference links are not resolved to actual URLs.
+          // They just render the reference ID as the href.
+          const href = block.external ? block.href : block.reference;
+          return <p><a href={href}>{block.text}</a></p>;
+        }
+      })}
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog">&larr; Back to all posts</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  header { margin-bottom: 2rem; }
+  .category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2563eb;
+    letter-spacing: 0.05em;
+  }
+  h1 { font-size: 2rem; margin: 0.5rem 0; }
+  .meta { font-size: 0.9rem; color: #6b7280; display: flex; gap: 0.5rem; }
+  .body { margin-top: 1.5rem; }
+  .body p { margin-bottom: 1rem; }
+  .body h2 { margin: 2rem 0 1rem; font-size: 1.5rem; }
+  .body a { color: #2563eb; text-decoration: underline; }
+  .post-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+</style>
